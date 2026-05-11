@@ -30,12 +30,12 @@ public class LoginController {
                         HttpServletRequest request){
         try{
             // 1. 서비스 로직 호출 (아이디/비번 검증)
-            User loginuser = userService.login(loginId, password);
+            User userId = userService.login(loginId, password); //loginUser -> userId로 변수명 변경
 
             // 2. 로그인 성공 처리: 세션 생성
             // getSession()은 기존 세션이 있으면 반환, 없으면 신규 생성
             HttpSession session = request.getSession();
-            session.setAttribute("loginUser", loginuser);
+            session.setAttribute("userId",userId);
 
             return "redirect:/main";
 

@@ -13,6 +13,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 설정
     private Long id;    //DB 식별자 (PK)
 
-    private String loginId;
-    private String password;
+    private String userId;  //LoginId -> userId로 변수명 변경
+    private String userPassword;    //password -> userPassword로 변수명 변경
 }
