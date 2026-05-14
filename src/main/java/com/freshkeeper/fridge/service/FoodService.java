@@ -1,7 +1,10 @@
 package com.freshkeeper.fridge.service;
 
+import com.freshkeeper.fridge.dto.FoodRequest;
 import com.freshkeeper.fridge.dto.FoodResponse;
+import com.freshkeeper.fridge.entity.Food;
 import com.freshkeeper.fridge.repository.FoodRepository;
+import org.springframework.transaction.annotation.Transactional; // DB 작업을 하나의 트랜잭션으로 묶음
 import lombok.RequiredArgsConstructor; // Lombok: final 필드를 파라미터로 받는 생성자 자동 생성 (의존성 주입용)
 import org.springframework.stereotype.Service; // 이 클래스가 비즈니스 로직을 담당하는 서비스 컴포넌트임을 선언
 
@@ -13,6 +16,21 @@ import java.util.stream.Collectors;
 public class FoodService {
 
     private final FoodRepository foodRepository; // final: 한번 주입되면 변경 불가
+
+    // 새로운 음식 등록 후 저장된 데이터를 FoodResponse로 반환
+    @Transactional // DB에 저장하는 작업이므로 트랜잭션 처리
+    public FoodResponse createFood(FoodRequest request) {
+        Food food = Food.builder()                              // 빌더 패턴으로 Food 객체 생성
+                .name(request.getName())
+                .expirationDate(request.getExpirationDate())
+                .status(request.getStatus())
+                .imageUrl(request.getImageUrl())
+                .memo(request.getMemo())
+                .registeredByUserId(request.getRegisteredByUserId())
+                .refrigeratorId(request.getRefrigeratorId())
+                .build();
+        return new FoodResponse(foodRepository.save(food));    // DB에 저장 후 응답 반환
+    }
 
     // DB에서 전체 음식 목록 조회 후 FoodResponse DTO 리스트로 변환해서 반환
     public List<FoodResponse> getAllFoods() {

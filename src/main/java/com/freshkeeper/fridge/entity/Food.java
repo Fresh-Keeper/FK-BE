@@ -1,6 +1,7 @@
 package com.freshkeeper.fridge.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder; // Lombok: 빌더 패턴 자동 생성 (객체 생성 시 가독성 향상)
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,4 +37,17 @@ public class Food {
     private Long registeredByUserId; // 등록한 유저 ID
 
     private Long refrigeratorId; // 소속 냉장고 ID
+
+    @Builder // 빌더 패턴으로 객체 생성 가능하게 함
+    public Food(String name, LocalDate expirationDate, FoodStatus status,
+                String imageUrl, String memo, Long registeredByUserId, Long refrigeratorId) {
+        this.name = name;
+        this.expirationDate = expirationDate;
+        this.status = status != null ? status : FoodStatus.FRESH; // status 미입력 시 FRESH 기본값
+        this.imageUrl = imageUrl;
+        this.memo = memo;
+        this.registeredByUserId = registeredByUserId;
+        this.refrigeratorId = refrigeratorId;
+        this.createdAt = LocalDateTime.now(); // 등록 시각 자동 세팅
+    }
 }

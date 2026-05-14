@@ -9,8 +9,10 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(21) // 내 PC는 Java 21로 빌드
 	}
+	sourceCompatibility = JavaVersion.VERSION_17 // Java 17 호환 바이트코드로 컴파일
+	targetCompatibility = JavaVersion.VERSION_17 // Docker(Java 17)에서도 실행 가능
 }
 
 repositories {
