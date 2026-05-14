@@ -42,6 +42,14 @@ public class FoodService {
         return new FoodResponse(food); // 수정된 데이터 반환 (@Transactional이 자동으로 DB에 반영)
     }
 
+    // ID로 음식 조회 후 삭제, 없으면 예외 발생
+    @Transactional
+    public void deleteFood(Long id) {
+        Food food = foodRepository.findById(id) // ID로 DB 조회
+                .orElseThrow(() -> new IllegalArgumentException("음식을 찾을 수 없습니다. id: " + id)); // 없으면 에러
+        foodRepository.delete(food); // DB에서 삭제
+    }
+
     // DB에서 전체 음식 목록 조회 후 FoodResponse DTO 리스트로 변환해서 반환
     public List<FoodResponse> getAllFoods() {
         return foodRepository.findAll()       // DB에서 모든 Food 조회
