@@ -50,6 +50,15 @@ public class FoodService {
         foodRepository.delete(food); // DB에서 삭제
     }
 
+    // 특정 음식 상태를 CONSUMED로 변경 (소비 완료 처리)
+    @Transactional
+    public FoodResponse consumeFood(Long id) {
+        Food food = foodRepository.findById(id) // ID로 DB 조회
+                .orElseThrow(() -> new IllegalArgumentException("음식을 찾을 수 없습니다. id: " + id)); // 없으면 에러
+        food.consume(); // 상태를 CONSUMED로 변경
+        return new FoodResponse(food); // 변경된 데이터 반환
+    }
+
     // DB에서 전체 음식 목록 조회 후 FoodResponse DTO 리스트로 변환해서 반환
     public List<FoodResponse> getAllFoods() {
         return foodRepository.findAll()       // DB에서 모든 Food 조회
