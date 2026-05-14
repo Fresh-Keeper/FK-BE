@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-
     //로그인 기능
     public User login(String userId, String userPassword) {
         // 1. loginId가 존재하면 저장, 아니면 오류메시지 출력후 종료
