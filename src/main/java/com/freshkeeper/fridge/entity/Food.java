@@ -38,6 +38,11 @@ public class Food {
 
     private Long refrigeratorId; // 소속 냉장고 ID
 
+    // 음식 상태를 CONSUMED로 변경 (소비 완료 처리)
+    public void consume() {
+        this.status = FoodStatus.CONSUMED;
+    }
+
     // 음식 정보 수정 메서드 (변경할 필드만 업데이트)
     public void update(String name, LocalDate expirationDate, FoodStatus status,
                        String imageUrl, String memo) {

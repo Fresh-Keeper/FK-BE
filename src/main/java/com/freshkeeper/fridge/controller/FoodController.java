@@ -36,6 +36,12 @@ public class FoodController {
         return ResponseEntity.ok(foodService.updateFood(id, request)); // 200 OK와 함께 수정된 데이터 반환
     }
 
+    // PATCH /foods/{id}/consume - 특정 음식 소비 완료 처리
+    @PatchMapping("/{id}/consume") // PATCH 방식의 /foods/{id}/consume 요청이 들어오면 이 메서드 실행
+    public ResponseEntity<FoodResponse> consumeFood(@PathVariable Long id) {
+        return ResponseEntity.ok(foodService.consumeFood(id)); // 200 OK와 함께 변경된 데이터 반환
+    }
+
     // DELETE /foods/{id} - 특정 음식 삭제
     @DeleteMapping("/{id}") // DELETE 방식의 /foods/{id} 요청이 들어오면 이 메서드 실행
     public ResponseEntity<Void> deleteFood(@PathVariable Long id) {
