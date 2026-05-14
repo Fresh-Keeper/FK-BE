@@ -38,6 +38,16 @@ public class Food {
 
     private Long refrigeratorId; // 소속 냉장고 ID
 
+    // 음식 정보 수정 메서드 (변경할 필드만 업데이트)
+    public void update(String name, LocalDate expirationDate, FoodStatus status,
+                       String imageUrl, String memo) {
+        this.name = name;
+        this.expirationDate = expirationDate;
+        this.status = status;
+        this.imageUrl = imageUrl;
+        this.memo = memo;
+    }
+
     @Builder // 빌더 패턴으로 객체 생성 가능하게 함
     public Food(String name, LocalDate expirationDate, FoodStatus status,
                 String imageUrl, String memo, Long registeredByUserId, Long refrigeratorId) {
