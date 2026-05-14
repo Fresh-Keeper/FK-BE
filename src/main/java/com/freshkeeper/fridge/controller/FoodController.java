@@ -1,12 +1,11 @@
 package com.freshkeeper.fridge.controller;
 
+import com.freshkeeper.fridge.dto.FoodRequest;
 import com.freshkeeper.fridge.dto.FoodResponse;
 import com.freshkeeper.fridge.service.FoodService;
 import lombok.RequiredArgsConstructor; // Lombok: final 필드를 파라미터로 받는 생성자 자동 생성 (의존성 주입용)
 import org.springframework.http.ResponseEntity; // HTTP 상태코드와 응답 데이터를 함께 반환하는 클래스
-import org.springframework.web.bind.annotation.GetMapping; // GET 방식 요청을 처리하는 어노테이션
-import org.springframework.web.bind.annotation.RequestMapping; // 이 컨트롤러의 기본 URL 경로 설정
-import org.springframework.web.bind.annotation.RestController; // JSON으로 응답하는 컨트롤러 선언
+import org.springframework.web.bind.annotation.*; // @GetMapping, @PostMapping, @RequestBody 등 포함
 
 import java.util.List;
 
@@ -21,5 +20,12 @@ public class FoodController {
     @GetMapping // GET 방식의 /foods 요청이 들어오면 이 메서드 실행
     public ResponseEntity<List<FoodResponse>> getAllFoods() {
         return ResponseEntity.ok(foodService.getAllFoods()); // 200 OK와 함께 데이터 반환
+    }
+
+    // POST /foods - 새로운 음식 등록
+    @PostMapping // POST 방식의 /foods 요청이 들어오면 이 메서드 실행
+    public ResponseEntity<FoodResponse> createFood(@RequestBody FoodRequest request) {
+        // @RequestBody: HTTP 요청 body의 JSON을 FoodRequest 객체로 자동 변환
+        return ResponseEntity.ok(foodService.createFood(request)); // 200 OK와 함께 저장된 데이터 반환
     }
 }
