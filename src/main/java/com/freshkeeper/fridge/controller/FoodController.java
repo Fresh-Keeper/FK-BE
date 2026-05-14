@@ -28,4 +28,11 @@ public class FoodController {
         // @RequestBody: HTTP 요청 body의 JSON을 FoodRequest 객체로 자동 변환
         return ResponseEntity.ok(foodService.createFood(request)); // 200 OK와 함께 저장된 데이터 반환
     }
+
+    // PUT /foods/{id} - 특정 음식 정보 수정
+    @PutMapping("/{id}") // PUT 방식의 /foods/{id} 요청이 들어오면 이 메서드 실행
+    public ResponseEntity<FoodResponse> updateFood(@PathVariable Long id, @RequestBody FoodRequest request) {
+        // @PathVariable: URL의 {id} 값을 파라미터로 받음
+        return ResponseEntity.ok(foodService.updateFood(id, request)); // 200 OK와 함께 수정된 데이터 반환
+    }
 }
