@@ -35,4 +35,11 @@ public class FoodController {
         // @PathVariable: URL의 {id} 값을 파라미터로 받음
         return ResponseEntity.ok(foodService.updateFood(id, request)); // 200 OK와 함께 수정된 데이터 반환
     }
+
+    // DELETE /foods/{id} - 특정 음식 삭제
+    @DeleteMapping("/{id}") // DELETE 방식의 /foods/{id} 요청이 들어오면 이 메서드 실행
+    public ResponseEntity<Void> deleteFood(@PathVariable Long id) {
+        foodService.deleteFood(id); // 음식 삭제
+        return ResponseEntity.noContent().build(); // 204 No Content 반환 (삭제 성공 시 반환할 데이터 없음)
+    }
 }
