@@ -3,6 +3,7 @@ package com.freshkeeper.fridge.service;
 import com.freshkeeper.fridge.domain.User;
 import com.freshkeeper.fridge.dto.SignupRequest;
 import com.freshkeeper.fridge.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,12 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         return user;
+    }
+
+    //로그아웃 기능
+    public void logout(HttpSession session){
+        if(session != null){
+            session.invalidate();
+        }
     }
 }

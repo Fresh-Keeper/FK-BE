@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class UserController {   //리팩토링: LoginController -> UserController
     private final UserService userService;
 
@@ -58,4 +58,12 @@ public class UserController {   //리팩토링: LoginController -> UserControlle
         }
     }
 
+    //로그아웃 API
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        userService.logout(session);
+
+        return ResponseEntity.ok("로그아웃 성공");
+    }
 }
