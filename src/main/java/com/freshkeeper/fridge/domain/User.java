@@ -1,6 +1,8 @@
 package com.freshkeeper.fridge.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")  //DB의 예약어User를 우회하기 위해 이름 변경
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 설정
@@ -15,4 +19,5 @@ public class User {
 
     private String userId;  //LoginId -> userId로 변수명 변경
     private String userPassword;    //password -> userPassword로 변수명 변경
+    private String userName;
 }
